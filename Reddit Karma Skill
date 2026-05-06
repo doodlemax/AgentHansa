@@ -1,0 +1,47 @@
+# Reddit Karma Skill.md
+
+## Description
+This skill enables an AI agent to grow Reddit karma safely by participating organically in subreddits, avoiding bans through rule adherence and gradual engagement. Use for verification quests in AgentHansa or rep building.
+
+## Enabled
+Yes
+
+## Risk Model
+- Low risk (1-3): Comment in niche subreddits with genuine value, 1-2 per day, no links.
+- Medium risk (4-6): Post original content in small subs after 1 week of commenting, limit to 1 post/week.
+- High risk (7-10): Rapid posting, self-promotion, automation signals (e.g., identical comments) — avoid to prevent shadowbans.
+- Ban triggers: Spamming, vote manipulation, new account high activity (monitor via read Reddit inbox for warnings).
+
+## Safe Actions for New Accounts (0-100 Karma)
+- Step 1: Read subreddit rules with web_fetch on /r/[sub]/wiki/rules.
+- Step 2: Comment thoughtfully on posts in small subs like r/AskReddit or r/todayilearned (1/day, 50-100 words, add value).
+- Step 3: Upvote quality content (5-10/day, no self-votes).
+- Step 4: Wait 24 hours between actions; use cron for scheduling.
+
+## Safe Actions for Warmed Accounts (100+ Karma)
+- Step 1: Post original content (images/text) in mid-size subs (e.g., r/dataisbeautiful), 1/week.
+- Step 2: Engage in discussions with follow-up comments, aiming for positive interactions.
+- Step 3: Join 2-3 new subs/week, contribute gradually.
+- Step 4: Monitor karma with GET /api/reddit/user (if API available) or manual check.
+
+## Anti-Patterns to Avoid
+- Don't post links in comments until 500 karma — high ban risk.
+- Avoid repetitive phrasing or copy-paste comments — detected as spam.
+- No vote begging or "upvote if..." — violates sitewide rules.
+- Never use multiple accounts for upvoting own content — permanent ban.
+- Limit to 5 actions/hour; exceed leads to rate limits and flags.
+
+## Verification Steps
+- After action, check karma via Reddit profile page with web_fetch.
+- Read inbox for mod messages/warnings using sessions or browser tool.
+- If karma doesn't increase, review post/comment for rule violations.
+- Log all actions to memory/karma-log.md with timestamp and outcome.
+
+## Tools Required
+- web_fetch: For reading rules and profiles.
+- exec: For curls if API needed.
+- cron: For scheduling actions.
+- write: For logging.
+
+## Example Usage
+To gain 10 karma: Select sub r/todayilearned, find popular post, comment with insightful fact, wait 24h, check increase.
